@@ -39,11 +39,27 @@ def compare(smart_meter_id: str = Path(openapi_examples=OPENAPI_EXAMPLES)):
     description="View recommended price plans for usage",
 )
 def recommend(
-    smart_meter_id: str = Path(openapi_examples=OPENAPI_EXAMPLES),
-    limit: int = Query(description="Number of items to return", default=None),
+        smart_meter_id: str = Path(openapi_examples=OPENAPI_EXAMPLES),
+        limit: int = Query(description="Number of items to return", default=None),
 ):
     price_plan_service = PricePlanService(readings_repository)
     list_of_spend_against_price_plans = price_plan_service.get_list_of_spend_against_each_price_plan_for(
         smart_meter_id, limit=limit
     )
     return list_of_spend_against_price_plans
+
+
+@router.get(
+    "/requested-days-usage/{smart_meter_id}",
+    response_model=Dict,
+    description="View recommended price plans for usage",
+)
+def get_last_weeks_usage(
+        smart_meter_id: str = Path(openapi_examples=OPENAPI_EXAMPLES),
+        periodicity: str = Query(description="price plan id"),
+):
+    price_plan_service = PricePlanService(readings_repository)
+
+    last_week_usage_price = price_plan_service.get_last_week_usage_price(smart_meter_id,
+                                                                         price_plan_id)
+    return {"last_week_usage_price": last_week_usage_price}

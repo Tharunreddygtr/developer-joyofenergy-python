@@ -16,7 +16,9 @@ class TestPricePlanService(TestCase):
     def test_calculate_costs_against_all_price_plans(self):
         price_plan_repository.clear()
         price_plan_repository.store(
-            [PricePlan("X1", "XS1", 10, []), PricePlan("X2", "XS2", 2, []), PricePlan("X6", "XS6", 1, [])]
+            [PricePlan("X1", "XS1", 10, []),
+             PricePlan("X2", "XS2", 2, []),
+             PricePlan("X6", "XS6", 1, [])]
         )
 
         reading_service_mock = MagicMock(

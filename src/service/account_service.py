@@ -5,6 +5,7 @@ class AccountService:
         "smart-meter-2": "price-plan-0",
         "smart-meter-3": "price-plan-2",
         "smart-meter-4": "price-plan-1",
+        "smart-meter-5": None,
     }
 
     def get_price_plan(self, smart_meter_id):
